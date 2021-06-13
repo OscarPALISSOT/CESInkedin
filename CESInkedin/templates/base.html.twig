@@ -2,18 +2,78 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {# Run `composer require symfony/webpack-encore-bundle`
-           and uncomment the following Encore helpers to start using Symfony UX #}
-        {% block stylesheets %}
-            {#{{ encore_entry_link_tags('app') }}#}
-        {% endblock %}
-
-        {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
-        {% endblock %}
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Welcome!{% endblock %}</title> 
+        {{ encore_entry_link_tags('scss/base') }}
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}?v=2" />
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Karla&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri&display=swap" rel="stylesheet">
+ 
     </head>
-    <body>
-        {% block body %}{% endblock %}
+    <body class="body">
+        <div id="top"></div>
+        <div class="grid">
+            <input id="NavToggle" type="checkbox">
+            <div class="header"></div>
+            <nav class="navbar">
+            <div class="network">
+            <a href="#"><i class="fab fa-facebook fa-2x"></i></a>
+            <a href="#"><i class="fab fa-twitter fa-2x"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in fa-2x"></i></i></a>
+            
+            </div>
+            <a href="/" id="logo"><i class="fas fa-compass fa-5x"></i></a>
+            <label id="nav-btn" for="NavToggle">
+                <div class="menu-btn">
+                    <div class="menu-btn-burger"></div>
+                </div>
+            </label>
+                <ul class="menuItems">
+                    
+                    <li><a href="#">Voir les offres</a></li>
+                    <li><a href="#">Déposer une offre</a></li>
+                </ul>
+            </nav>
+            
+            <div class="main">
+                {% block body %}{% endblock %}
+                <div class="gotoTop">
+                    <a href="#top" class="linktoTop">
+                        <button class="btntoTop"><i class="fas fa-arrow-circle-up fa-4x"></i></button>
+                    </a>
+                </div>
+            </div>
+
+            
+
+            <div class="footer"></div>
+            <div class="footerContent">
+                <span>
+                    <a href="#">Qui sommes nous ?</a>
+                    <a href="#">Mentions légales</a>
+                    <a href="#">Politique de confidentialité</a>
+                </span>
+                <span>
+                    <a href="#">Conditions d’utilisation</a>
+                    <a href="#">Nous contacter</a>
+                    <a href="#">F.A.Q</a>
+                </span>
+            
+                <p>&copyLymphobank</p>
+            </div>
+            
+        </div>
+        
+        <!--fontAwesome--> 
+        <script src="https://kit.fontawesome.com/695ef1a9d2.js" crossorigin="anonymous"></script>
+
+        {{ encore_entry_script_tags('js/base') }}
+        
+        {% block javascripts %}
+            
+        {% endblock %}
     </body>
+    
 </html>

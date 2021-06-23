@@ -6,15 +6,32 @@
 
 {% block stylesheets %}
     {{ encore_entry_link_tags('scss/home') }}
+    {{ encore_entry_link_tags('scss/map') }}
+    {# leaflet map #}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin=""/>
 {% endblock %}
 
 {% block body %}
 <div class="featured">
     <h1>Offres à la une :</h1>
     <div class="grid-gallery">
-        <div class="grid-item"></div>
-        <div class="grid-item"></div>
-        <div class="grid-item"></div>
+        <div class="grid-item">
+            <div class="cardOffre">
+                <h2 class="titre">titre</h2>
+                <img class="offrePic" src={{ asset ('img/cesi_Logo.png')}}>
+            </div>
+        </div>
+        <div class="grid-item">
+            <div class="cardOffre">
+                <img class="offrePic" src={{ asset ('img/orange.png')}}>
+            </div>
+        </div>
+        <div class="grid-item">
+            <div class="cardOffre">
+                <img class="offrePic" src={{ asset ('img/testvertical.png')}}>
+            </div>
+        </div>
         <div class="grid-item"></div>
         <div class="grid-item"></div>
         <div class="grid-item"></div>
@@ -26,7 +43,20 @@
         <div class="grid-item"></div>
     </div>
 </div>
-{% endblock %}
 
-{% block javascripts %}{% endblock %}
+<div id="map" class="map"></div>
+
+{# map #}
+<!-- Make sure you put this AFTER Leaflet's CSS -->
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+crossorigin=""></script>
+<script type="text/javascript" src="https://stamen-maps.a.ssl.fastly.net/js/tile.stamen.js?v1.3.0"></script>
+
+
+{% endblock %}
+    
+{% block javascripts %}
+    {{ encore_entry_script_tags('js/map') }}
+{% endblock %}
 

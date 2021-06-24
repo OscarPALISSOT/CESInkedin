@@ -7,6 +7,7 @@ $fond :#fffdf0;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-overflow-scrolling: touch;
 }
 
 html, body{
@@ -34,36 +35,6 @@ html, body{
   border-bottom: solid 3px black;
   z-index: 3;
 }
-
-
-
-//scrollbar
-/* Works on Firefox */
-*{
-  scrollbar-width: thin;
-  scrollbar-color: $pastel $fond;
-}
-
-/* Works on Chrome, Edge, and Safari */
-*::-webkit-scrollbar {
-  width: 15px;
-  
-}
-
-*::-webkit-scrollbar-track {
-  background: $fond;
-  box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
-}
-
-*::-webkit-scrollbar-thumb {
-  background-color: $pastel;
-  border-radius: 15px;
-}
-
-*::-webkit-scrollbar-thumb:hover{
-  background-color: $pastelHover;
-} 
-
 
 //main div
 .main{
@@ -127,6 +98,12 @@ html, body{
   }
 }
 
+//taille des icon dans les schéma
+.icon{
+  width: 64px;
+  height: auto;
+}
+
 
 //footer
 .footer{
@@ -187,21 +164,33 @@ html, body{
   display: flex;
   justify-content: space-between;
   z-index: 4;
-
   #logo{
+    color: black;
     height: 100px;
     width: 100px;
     margin: 1.5em;
     margin-left: 0;
     transform: translateX(-100vw);
-    color: black;
-    i{
+    img{
       width: 100px;
       height: auto;
     }
   }
+
   #logo:hover{
-    color: rgba(0, 0, 0, 0.5);
+    color: rgba(0, 0, 0, 0.6);
+  }
+  .headerText{
+    font-family: 'Karla', sans-serif;
+    transform: translateX(-100vw);
+  }
+
+  .nom{
+    display: none;
+  }
+
+  .slogan{
+    display: none;
   }
 
   //réseaux sociaux
@@ -352,234 +341,19 @@ html, body{
   transform: rotate(-45deg) translate(35px, 35px);
 }
 
-
-//déroullant
-.accordion {
-  background-color: transparent;
-  cursor: pointer;
-  border: none;
-  outline: none;
-  height: 43px;
-  width: 200px;
-  padding: 0;
-  text-align: left;
-  border-top: solid 3px black;
-  border-right:solid 3px black;
-  box-shadow: -2px 4px 3px rgba(0, 0, 0, 0.1);
-  border-radius: 0 15px 0 0 ;
-  font-family: 'Karla', sans-serif;
-  font-weight: bold;
-  position: relative;
-  overflow: hidden;
-  margin-top: 1em;
-}
-
-//titre déroullant
-.accordionTitle{
-  margin-bottom: 5px;
-  position: absolute;
-  left: 5px;
-  top: 15px; 
-}
-p.accordionTitle{
-  font-size: 0.7em;
-} 
-
-//animation déroullant
-.accordion:hover{
-  background-color: transparent;
-}
-
-.accordion:before {    
-  content: "";
-  display: block;
-  height: 100%;
-  position: absolute;
-  background:$pastel;
-  bottom: 0;
-  width: 100%;
-  transition: transform 0.35s ease-out;
-  transform-origin: bottom right;
-  transform: scaleX(0);
-}
-.accordion:hover:before { 
-  transform: scaleX(1);
-  transform-origin: bottom left; 
-}
-
-.accordion:after {
-  content: '+';
-  color: black;
-  margin-right: 15px;
-  margin-left: 30px;
-  display: block;
-  position: absolute;
-  bottom: 5px;
-  right: 0;
-}
-
-.active:after {
-  content: "-";
-}
-
-//contenu déroullant
-.panel {
-  margin-top: 1em;
-  padding: 0;
-  padding-left: 20px;
-  margin-bottom: 2em;
-  background-color: transparent;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.35s ease-out;
-  position: relative;
+//encadrement texte violet
+.textPurple{
+  border-radius: 0 0 0 15px;
+  border-bottom: 4px solid $pastel;
+  border-left: $pastel 4px solid;
+  width: auto;
+  margin-bottom: 1em;
   p{
-    margin: 1em 0;
-  }
-  .illustrationAccordeon{
-    margin: 1em 0;
-    width: 100%;
-    height: auto;
-    float: left;
-    border-radius: 15px;
-    box-shadow: 5px 5px 6px rgba(0,0,0,0.2);
+      font-weight: bold;
+      margin: 1em;
+      width: auto;
   }
 }
-
-.panel::before{
-  content: "";
-  position: absolute;
-  border-radius: 0 0 0 15px ;
-  border-bottom: solid 3px black;
-  border-left:solid 3px black;
-  left: 0px;
-  right: 0px;
-  top: 0px;
-  bottom: 0px;
-  clip-path: polygon(0 0,2% 0, 1% 92%, 100% 92%, 100% 100%,0 100%);
-}
-
-
-//cards
-.card{
-  width: 200px;
-  min-height: 340px;
-  max-height: 340px;
-  border-radius: 15px;
-  border: 2px solid rgba(0,0,0,0.2);
-  margin: 1em 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  transition: max-height 0.35s ease-out;
-  .card-title{
-    font-size: 0.6em;
-    height: 50px;
-    text-align: center;
-    h2{
-      margin: 0 0.5em;
-    }
-  }
-  .card-pic{
-    width: 196px;
-    height: 196px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    img{
-      width: 70%;
-      height: auto;
-    }
-  }
-}
-
-.btnCard{
-  width: 60%;
-  background-color: $pastel;
-  border-radius: 15px;
-  text-align: left;
-  font-family: 'Karla', sans-serif;
-  font-weight: bold;
-  position: relative;
-  outline: none;
-  cursor: pointer;
-  border: none;
-  padding: 15px;
-  margin-top: 1em;
-  p{
-    font-size: 0.8em;
-    margin: 0;
-  }
-}
-
-.btnCard:hover{
-  box-shadow: inset 2px 4px 3px rgba(0, 0, 0, 0.1);
-}
-
-.btnCard:after {
-  font-size: 1.5em;
-  content: '+';
-  color: black;
-  margin-right: 15px;
-  margin-left: 30px;
-  display: block;
-  position: absolute;
-  bottom: 15px;
-  right: 0;
-}
-
-.activeCard:after {
-  content: "-";
-}
-
-//contenu déroullant card
-.panelCard {
-  padding: 0;
-  margin: 1em;
-  background-color: $fond;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.35s ease-out;
-  position: relative;
-  p{
-    text-align: center;
-    margin-bottom: 0;
-  }
-}
-
-/* Tooltip container */
-.tooltip {
-  display: inline-block;
-  font-weight: bold;
-  border-bottom: 2px solid $pastel;
-  cursor: pointer;
-}
-
-/* Tooltip text */
-.tooltip .tooltipText {
-  font-weight: 400;
-  width: 300px;
-  background-color: $pastel;
-  color: $fond;
-  text-align: left;
-  padding: 15px;
-  border-radius: 6px;
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: all 0.35s ease-in-out;
-  /* Position the tooltip text */
-  position: absolute;
-  z-index: 1;
-  top: 25% ;
-  right: 0;
-}
-
-/* Show the tooltip text when you mouse over the tooltip container */
-.tooltip:hover .tooltipText {
-  transform: scaleX(100%);
-}
-
 
 //go to top btn
 .gotoTop{
@@ -591,12 +365,6 @@ p.accordionTitle{
 
 // X-Small devices (portrait phones, 360px and up)
 @media (min-width: 360px) {
-  .accordion{
-    width: 280px;
-  }
-  p.accordionTitle{
-    font-size: 1em;
-  } 
   .navbar{
     .menuItems{
       li{
@@ -604,27 +372,6 @@ p.accordionTitle{
           font-size: 1.5em;
         }
       }
-    }
-  }
-
-  //cards
-  .card{
-    width: 240px;
-    min-height: 420px;
-    max-height: 420px;
-    margin: 1em;
-    .card-title{
-      font-size: 0.8em;
-      height: 84px;
-    }
-    .card-pic{
-      width: 236px;
-      height: 236px;
-    }
-  }
-  .btnCard{
-    p{
-      font-size: 1em;
     }
   }
 }
@@ -640,20 +387,6 @@ p.accordionTitle{
     justify-content: space-between;
     
   }
-
-  .accordion{
-    width: 400px;
-    font-size: 1.25em;
-  }
-
-  //contenu déroullant
-  .panel {
-    .illustrationAccordeon{
-      width: 300px;
-      margin-right: calc(768px - 300px - 12% - 1em);
-    }
-  }
-
   .navbar{
     .menuItems{
       li{
@@ -664,11 +397,20 @@ p.accordionTitle{
       }
     }
   }
-  
 }
 
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) {
+
+  .navbar{
+    .nom{
+      display: block;
+      position: absolute;
+      font-size: 2em;
+      top: 56.5px;
+      left: calc(12vw + 100px);
+    }
+  }
   .main{
     //photo gauche paragraphe
     .illustrationLeft{
@@ -692,17 +434,52 @@ p.accordionTitle{
       min-height:290px;
     }
   }
+}
 
-  //contenu déroullant
-  .panel {
-    .illustrationAccordeon{
-      margin-right: 2.5em;
+// Medium devices
+@media (min-width: 835px) {
+  .navbar{
+    .nom{
+      font-size: 2.5em;
     }
   }
 }
 
 // Large devices (desktops, 992px and up)
 @media (min-width: 992px) {
+
+  //scrollbar
+  /* Works on Firefox */
+  *{
+    scrollbar-width: thin;
+    scrollbar-color: $pastel $fond;
+  }
+
+  /* Works on Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 15px;
+    
+  }
+
+  *::-webkit-scrollbar-track {
+    background: $fond;
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: $pastel;
+    border-radius: 15px;
+  }
+
+  *::-webkit-scrollbar-thumb:hover{
+    background-color: $pastelHover;
+  }
+
+  //taille icon dans les schémas
+  .icon{
+    width: 128px;
+  }
+  
   .navbar{
     #logo{
       height: 100px;
@@ -718,38 +495,6 @@ p.accordionTitle{
 
   .menu-btn{
     margin: 1.5em;
-  }
-  
-  //cards
-  .card{
-    max-height: 480px;
-    min-height: 480px;
-    width: 300px;
-    margin: 2em;
-    .card-title{
-      font-size: 0.6em;
-      height: 50px;
-      font-size: 0.8em;
-      height: 84px;
-      text-align: center;
-      h2{
-        margin: 0 0.5em;
-      }
-    }
-    .card-pic{
-      width: 296px;
-      height: 296px;
-      img{
-        width: 70%;
-        height: auto;
-      }
-    }
-  }
-
-  .btnCard{
-    p{
-      font-size: 1em;
-    }
   }
 
   //go to top btn
@@ -809,7 +554,9 @@ p.accordionTitle{
         color: rgba(0, 0, 0, 0.5);
       }
     }
-
+    .nom{
+      top: 28px;
+    }
     #logo{
       transform: translateX(-100vw);
       position: absolute;
@@ -895,6 +642,22 @@ p.accordionTitle{
       position: absolute;
       right: 0;
       margin: 0;
+    }
+  }
+}
+
+
+// XXX-Large devices
+@media (min-width: 1650px) {
+  .navbar{
+    .slogan{
+      display: block;
+      font-weight: 500;
+      font-size: 1.6em;
+      position: absolute;
+      bottom: 29px;
+      left: calc(12vw + 100px);
+      padding-bottom: 4px;
     }
   }
 }

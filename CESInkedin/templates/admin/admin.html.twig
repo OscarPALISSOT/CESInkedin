@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Administration{% endblock %}</title>
+
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
+        {% block stylesheets %}{% endblock %}
+        {{ encore_entry_link_tags('scss/admin') }}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}?v=2" />
+
+    </head>
+    <body>
+        <!-- SideBar -->
+        <div class="side-navbar active-nav d-flex justify-content-between flex-wrap flex-column" id="sidebar">
+            <ul class="nav flex-column text-white w-100">
+                <a class="nav-link h3 text-white my-2 navbar-brand" href={{path ('home')}}><i class="fas fa-home"></i>HomePage</a>
+                <hr class="sidebar-divider my-0">
+                <li href="#" class="nav-link">
+                <span class="mx-2">Tableau de bord</span>
+                </li>
+                <hr class="sidebar-divider my-0">
+                <li>
+                    <a href={{path ('gestion_admins')}} class="nav-link"><i class="fas fa-user-shield"></i>Admins</a>
+                </li>
+                <hr class="sidebar-divider my-0">
+                <hr class="sidebar-divider my-0">
+                {# <li>
+                    <a href={{ path ('gestion_offres')}} class="nav-link"><i class="fas fa-comment-alt"></i>Offres</a>
+                </li> #}
+                <hr class="sidebar-divider my-0">
+                
+            </ul>
+        </div>
+        <!-- \SideBar -->
+
+        <div class="p-1 my-container active-cont">
+            <!-- Top Nav -->
+            <nav class="navbar navbar-expand-lg top-navbar navbar-light bg-light mb-4 ps-5">
+                <a class="btn border-0" id="menu-btn"><i class="fas fa-bars"></i></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!--Bouton de logout si connecté-->
+                    <ul class="navbar-nav ms-auto">
+                        {% if app.user %}
+                            <li class="nav-item dropdown">
+                                <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-user"></i> {{loggedUser.username}}
+                                </button>
+
+                                <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href={{ path ('monEspace', {id: loggedUser.username})}}>Mon espace</a></li>
+                                    <li class="nav-item">
+                                        <i class="fas fa-sign-out-alt"></i>
+                                        <a href={{path ('logout')}}>Se déconnecter</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>  
+            </nav>
+            <!--End Top Nav -->
+            {% block body %}{% endblock %}
+        </div>
+
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+        <!--fontAwesome--> 
+        <script src="https://kit.fontawesome.com/695ef1a9d2.js" crossorigin="anonymous"></script>
+
+        <!-- Bootstrap JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+
+        <!--Sidebar navigation-->
+        <script> var menu_btn = document.querySelector("#menu-btn");
+        var sidebar = document.querySelector("#sidebar");
+        var container = document.querySelector(".my-container");
+        menu_btn.addEventListener("click", () => {
+        sidebar.classList.toggle("active-nav");
+        container.classList.toggle("active-cont");
+        });</script>
+        
+
+        {% block javascripts %}{% endblock %}
+    </body>
+
+
+</html>

@@ -35,6 +35,7 @@ $fond :#fffdf0;
     overflow: hidden;
     vertical-align: middle;
     cursor: pointer;
+    transition: all .3s ease-in-out;
     .picCadre{
         position: absolute;
         top: 0;

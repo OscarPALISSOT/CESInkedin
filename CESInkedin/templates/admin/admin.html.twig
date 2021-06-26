@@ -45,24 +45,7 @@
                 <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!--Bouton de logout si connecté-->
-                    <ul class="navbar-nav ms-auto">
-                        {% if app.user %}
-                            <li class="nav-item dropdown">
-                                <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fas fa-user"></i> {{loggedUser.username}}
-                                </button>
-
-                                <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href={{ path ('monEspace', {id: loggedUser.username})}}>Mon espace</a></li>
-                                    <li class="nav-item">
-                                        <i class="fas fa-sign-out-alt"></i>
-                                        <a href={{path ('logout')}}>Se déconnecter</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        {% endif %}
-                    </ul>
+                    
                 </div>  
             </nav>
             <!--End Top Nav -->

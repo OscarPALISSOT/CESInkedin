@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Se connecter{% endblock %}</title> 
+        {{ encore_entry_link_tags('scss/login') }}
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}?v=2" />
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Karla&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri&display=swap" rel="stylesheet">
+ 
+    </head>
+    <body>
+        <div class="log">
+            <div class="logTitle">
+                <h2>Se connecter</h2>
+            </div>
+            {% if error %}
+                <div class="error">
+                    {{error.messageKey | trans(error.messagedata, 'security')}}
+                </div>
+            {% endif %}
+            
+
+            <form action={{path('login')}} method="post" autocomplete="off">
+
+                <label class="input">
+                    <input type="text" id="username" name="_username" class="input__field" placeholder=" " aria-label="Username" aria-describedby="basic-addon1" value={{lastUsername}}>
+                    <span class="input__label">Identifiant</span>
+                </label>
+                
+                <label class="input">
+                    <input type="password" class="input__field" name="_password" placeholder=" " aria-label="password" aria-describedby="basic-addon1">
+                    <span class="input__label">Password</span>
+                </label>
+                
+
+                <button class="btn" type="submit" class="btn btn-primary">S'authentifier</button>
+            </form>
+        </div>
+        
+        <!--fontAwesome--> 
+        <script src="https://kit.fontawesome.com/695ef1a9d2.js" crossorigin="anonymous"></script>
+    </body>
+    
+</html>
+
+

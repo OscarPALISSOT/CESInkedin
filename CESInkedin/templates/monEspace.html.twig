@@ -1,0 +1,29 @@
+
+{% extends "base.html.twig" %}
+
+{% block title %}Mon espace{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('scss/monEspace') }}
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <div class="modif">
+        <h1>Modifier mes informations</h1>
+            <div class="name">
+            <h5>Changer d'identifiant</h5>
+                {{ include ("admin/admins/FormAdmins.html.twig", {form: form, button: 'Enregistrer'}) }}
+            </div>
+            <div class="pwd">
+            <h5>Changer de mot de passe</h5>
+                {{form (formPwd)}}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

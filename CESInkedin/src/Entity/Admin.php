@@ -2,14 +2,22 @@
 
 namespace App\Entity;
 
+
+use DateTime;
 use App\Repository\AdminRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=AdminRepository::class)
  */
-class Admin
+class Admin implements UserInterface,\Serializable
 {
+
+    public function __construct()
+    {
+        $this->created_at = new DateTime();
+    }
 
     /**
      * @ORM\Id
@@ -32,11 +40,6 @@ class Admin
      * @ORM\Column(type="datetime")
      */
     private $created_at;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getUsername(): ?string
     {
@@ -62,9 +65,11 @@ class Admin
         return $this;
     }
 
-    public function getRoles(): ?array
+    public function getRoles()
     {
-        return $this->roles;
+        $roles = $this->roles;
+        $roles[]= 'ROLE_USER';
+        return array_unique($roles);
     }
 
     public function setRoles(array $roles): self
@@ -72,6 +77,34 @@ class Admin
         $this->roles = $roles;
 
         return $this;
+    }
+
+    public function getSalt()
+    {
+        return NULL;
+    }
+
+
+    public function eraseCredentials()
+    {
+        
+    }
+
+    public function serialize()
+    {
+        return serialize([
+            $this->username,
+            $this->password
+        ]);
+    }
+
+
+    public function unserialize($serialized)
+    {
+        list(
+            $this->username,
+            $this->password
+        ) = unserialize($serialized, ['allowed_classes' => false]);
     }
 
     public function getCreatedAt(): ?\DateTimeInterface

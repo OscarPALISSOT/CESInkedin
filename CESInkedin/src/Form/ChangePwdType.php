@@ -17,6 +17,7 @@ class ChangePwdType extends AbstractType
         $builder
         ->add('oldPassword', PasswordType::class, array(
 
+            'label' => 'Mot de passe',
             'mapped' => false
 
         ))
@@ -28,6 +29,10 @@ class ChangePwdType extends AbstractType
             'mapped' => false,
 
             'invalid_message' => 'Les deux mots de passe doivent être identiques',
+
+            'first_options'  => ['label' => 'Nouveau mot de passe'],
+
+            'second_options' => ['label' => 'Confirmez le mot de passe'],
 
             'options' => array(
 

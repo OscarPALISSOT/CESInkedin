@@ -8,19 +8,19 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container mt-4">
-        <div class="modif">
-        <h1>Modifier mes informations</h1>
-            <div class="name">
-            <h5>Changer d'identifiant</h5>
-                {{ include ("admin/admins/FormAdmins.html.twig", {form: form, button: 'Enregistrer'}) }}
-            </div>
-            <div class="pwd">
-            <h5>Changer de mot de passe</h5>
-                {{form (formPwd)}}
-            </div>
+    <div class="modif">
+    <h1>Modifier mes informations</h1>
+        <div class="name">
+        <h2>Changer d'identifiant</h2>
+            {{ include ("admin/admins/FormAdmins.html.twig", {form: form, button: 'Enregistrer'}) }}
+        </div>
+        <div class="pwd">
+        <h2>Changer de mot de passe</h2>
+            {{form (formPwd)}}
         </div>
     </div>
+
+    <a class="logout" href="/logout"><button>Se déconnecter</button></a>
 
 {% endblock %}
 

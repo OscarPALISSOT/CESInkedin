@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class UsersController extends AbstractController
+class TuteursController extends AbstractController
 {
     public function __construct(AdminRepository $repository, UserPasswordEncoderInterface $encoder)
     {
@@ -20,37 +20,38 @@ class UsersController extends AbstractController
         $this->encoder = $encoder;
     }
 
+
     /**
-     * @Route ("/Admin/Admins", name="gestion_admins")
+     * @Route ("/Admin/Tuteurs", name="gestion_tuteurs")
      * @return Response
      */
-    public function ShowAdmins(PaginatorInterface $paginator, Request $request): Response
+    public function ShowTuteurs(PaginatorInterface $paginator, Request $request): Response
     {
 
         $admins = $paginator->paginate(
-            $this->repository->findByRole('ROLE_ADMIN'),
+            $this->repository->findByRole('ROLE_TUTEUR'),
             $request->query->getInt('page', 1),
             10
         );
 
-        return $this->render('admin/admins/ShowAdmins.html.twig', [
+        return $this->render('admin/admins/ShowTuteurs.html.twig', [
             'admins' => $admins,
             'loggedUser' => $this->getUser()
         ]);
     }
 
     /**
-     * @Route ("/Admin/NouveauUser", name="create_admin")
+     * @Route ("/Admin/NouveauUser", name="create_tuteur")
      * @return Response
      */
-    public function createAdmins(Request $request){
+    public function createTuteurs(Request $request){
 
         $NewAdmin = new Admin;
         $login = $request->request->get('username');
         $pwd = bin2hex(random_bytes(5));
         $NewAdmin->setUsername($login);
         $NewAdmin->setPassword($this->encoder->encodePassword($NewAdmin, $pwd));
-        $NewAdmin->setRoles(['ROLE_ADMIN']);
+        $NewAdmin->setRoles(['ROLE_TUTEUR']);
         if ($this->isCsrfTokenValid("createAdmin", $request->get('_token'))){
             $em = $this->getDoctrine()->getManager();
             $em->persist($NewAdmin);
@@ -66,17 +67,17 @@ class UsersController extends AbstractController
 
 
     /**
-     * @Route ("/Admin/Admins/{id}", name="edit_admin", methods="GET|POST")
+     * @Route ("/Admin/Tuteurs/{id}", name="edit_tuteur", methods="GET|POST")
      * @return Response
      */
-    public function editAdmins(Admin $admin, Request $request){
+    public function editTuteurs(Admin $admin, Request $request){
         $form = $this->createForm(AdminFormType::class, $admin);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
             $em = $this->getDoctrine()->getManager();
             $em->flush();
-            return $this->redirectToRoute('gestion_admins');
+            return $this->redirectToRoute('gestion_tuteurs');
         }
         return $this->render('admin/admins/EditAdmins.html.twig', [
             'admin' => $admin,
@@ -86,10 +87,10 @@ class UsersController extends AbstractController
     }
 
     /**
-     * @Route ("/Admin/Admins/Delete/{id}", name="delete_admin")
+     * @Route ("/Admin/Tuteurs/Delete/{id}", name="delete_tuteur")
      * @return Response
      */
-    public function deleteAdmins(Admin $admin, Request $request){
+    public function deleteTuteurs(Admin $admin, Request $request){
 
         if ($this->isCsrfTokenValid("delete", $request->get('_token'))){
             $em = $this->getDoctrine()->getManager();
@@ -97,7 +98,7 @@ class UsersController extends AbstractController
             $em->flush();
         }
         
-        return $this->redirectToRoute('gestion_admins');
+        return $this->redirectToRoute('gestion_tuteurs');
     }
 
 }

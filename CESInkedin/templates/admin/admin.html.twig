@@ -23,9 +23,26 @@
                 <span class="mx-2">Tableau de bord</span>
                 </li>
                 <hr class="sidebar-divider my-0">
+                <!-- Menu déroulant users -->
                 <li>
-                    <a href={{path ('gestion_admins')}} class="nav-link"><i class="fas fa-user-shield"></i>Admins</a>
+                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="flush-headingOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseUser" aria-expanded="false" aria-controls="flush-collapseUser">
+                                <i class="fas fa-users"></i> Utilisateurs
+                            </button>
+                            </h2>
+                            <div id="flush-collapseUser" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                <a href={{path ('gestion_admins')}} class="nav-link"><i class="fas fa-user-shield"></i>Admins</a>
+                                <a href={{path ('gestion_tuteurs')}} class="nav-link">Tuteurs</a>
+                                <a href={{path ('gestion_delegues')}} class="nav-link">Délégués</a>
+                                <a href={{path ('gestion_eleves')}} class="nav-link">Elèves</a>  
+                            </div>
+                        </div>    
+                    </div>
                 </li>
+                <!-- /Menu déroulant users -->
                 <hr class="sidebar-divider my-0">
                 <hr class="sidebar-divider my-0">
                 {# <li>

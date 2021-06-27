@@ -29,7 +29,7 @@
                             {{admin.username}}
                         </th>
                         <td>
-                            <a href={{ path ('edit_admin', {id: admin.username})}} type="button" class="btn btn-warning"><i class="fas fa-cog"></i></a>
+                            <a href={{ path ('edit_eleve', {id: admin.username})}} type="button" class="btn btn-warning"><i class="fas fa-cog"></i></a>
                         </td>
                         <td>
                             <!-- Boutton modal delete-->
@@ -46,13 +46,13 @@
                                                 </h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                    <form id="delete{{admin.username}}" method="post" action={{ path ('delete_admin', {id: admin.username})}}>
-                                                        <input type="hidden" name="_method" value="DELETE">
-                                                        <input type="hidden" name="_token" value={{ csrf_token ('delete')}}>
+                                                    <form id="delete{{admin.username}}" method="post" action={{ path ('delete_eleve', {id: admin.username})}}>
                                                         <div class="modal-body">
                                                             <h5>Identifiant : {{admin.username}}</h5>
                                                             <br>
                                                             <h5><strong>Cette action est irréversible</strong></h5>
+                                                            <input type="hidden" name="_method" value="DELETE">
+                                                            <input type="hidden" name="_token" value={{ csrf_token ('delete')}}>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="submit" class="btn btn-danger">Oui, Supprimer</button>
@@ -85,7 +85,7 @@
                     <h2 class="modal-title" id="modalLabel">Entrez un identifiant</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action={{ path ('create_admin')}} method="post">
+                <form action={{ path ('create_eleve')}} method="post">
                     <div class="modal-body">
                         <div class="input-group mb-3">
                             <span class="input-group-text">@</span>

@@ -7,6 +7,7 @@
 {% block stylesheets %}
     {{ encore_entry_link_tags('scss/home') }}
     {{ encore_entry_link_tags('scss/map') }}
+    {{ encore_entry_link_tags('scss/card') }}
     {# leaflet map #}
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
     crossorigin=""/>
@@ -34,7 +35,12 @@
                 <div class="bottom"><h2 class="titre">titre</h2></div>
             </div>
         </div>
-        <div class="grid-item"></div>
+        <div class="grid-item">
+            <div class="cardOffre">
+                <div class="picCadre"><img class="offrePic" src={{ asset ('img/testvertical.png')}}></div>
+                <div class="bottom"><h2 class="titre">titre</h2></div>
+            </div>
+        </div>
         <div class="grid-item"></div>
         <div class="grid-item"></div>
         <div class="grid-item"></div>

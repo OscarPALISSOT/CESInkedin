@@ -1,0 +1,102 @@
+
+$pastel : #5c88da;
+$pastelHover : #3762b3;
+$fond :#fffdf0;
+
+.featured{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 76vw;
+    .grid-gallery{
+        max-width: 1500px;
+        width: 100%;
+        height: auto;
+        margin: 30px auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, 280px);
+        justify-content: center;
+        grid-gap: 15px;
+    } 
+    .grid-item{
+        width: 280px;
+        height: 190px;
+    }
+}
+
+
+.cardOffre{
+    position: relative;
+    border-radius: 15px;
+    border: solid 4px $pastel;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    vertical-align: middle;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+    .picCadre{
+        position: absolute;
+        top: 0;
+        display: flex;
+        align-items: center;
+        height: 66.66%;
+    }
+    .offrePic{
+        width: 100%;
+        height: auto;
+    }
+    .bottom{
+        position: absolute;
+        width: 100%;
+        height: 51px;
+        background-color: $pastel;
+        bottom: 0;
+        left: 0;
+        .entreprise{
+            text-align: center;
+            font-size: 1em;
+            margin-bottom: 0.5em;
+            margin-top: 0.25em;
+        }
+        .titre{
+            text-align: center;
+            font-weight: 500;
+            font-size: 1em;
+        }
+    }
+}
+.cardOffre:hover{
+    box-shadow:
+    rgba(22, 31, 39, 0.42) 0px 60px 123px -25px,
+    rgba(19, 26, 32, 0.08) 0px 35px 75px -35px;
+    transform: scale(102%) perspective(75em) rotateX(15deg);
+    transition: all .3s ease-in-out;
+}
+
+// Small devices
+@media (min-width: 360px) {
+    //actus
+    .featured{
+        .grid-gallery{
+            grid-template-columns: repeat(auto-fill, 325px);
+        } 
+        .grid-item{
+            width: 325px;
+            height: 220px;
+        }
+    }
+    .cardOffre{
+        .bottom{
+            height: 64px;
+            .entreprise{
+                font-size: 1.3em;
+                margin-top: 0.2em;
+            }
+            .titre{
+                font-size: 1.1em;
+            }
+        }
+    }
+}

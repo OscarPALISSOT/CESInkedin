@@ -19,6 +19,21 @@ class OffreRepository extends ServiceEntityRepository
         parent::__construct($registry, Offre::class);
     }
 
+
+    /**
+     * @return Offre[] Returns an array of Offre objects
+    */
+
+    public function findFeaturedOffre()
+    {
+        return $this->createQueryBuilder('o')
+            ->orderBy('o.created_at', 'DESC')
+            ->setMaxResults(12)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Offre[] Returns an array of Offre objects
     //  */

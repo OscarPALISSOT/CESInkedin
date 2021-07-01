@@ -16,40 +16,23 @@
 {% block body %}
 <div class="featured">
     <h1>Offres à la une :</h1>
-    <div class="grid-gallery">
-        <div class="grid-item">
-            <div class="cardOffre">
-                <div class="picCadre"><img class="offrePic" src={{ asset ('img/cesi_Logo.png')}}></div>
-                <div class="bottom"><h2 class="entreprise">CESI</h2><h2 class="titre">Creation d'un site vitrine</h2></div>
+    {% for featuredOffre in featuredOffres %}
+        <div class="grid-gallery">
+            <div class="grid-item">
+                <div class="cardOffre">
+                    <div class="picCadre">
+                        {% if featuredOffre.filename %}
+                        <img class="offrePic" src={{ vich_uploader_asset(featuredOffre, 'imageFile')}}>
+                        {% else %}
+                        <img class="offrePic" src={{ asset ('img/default-pic.png')}}>
+                        {% endif %}
+                    </div>
+                    <div class="bottom"><h2 class="entreprise">{{featuredOffre.titre}}</h2><h2 class="titre">{{featuredOffre.sousTitre}}</h2></div>
+                </div>
             </div>
         </div>
-        <div class="grid-item">
-            <div class="cardOffre">
-                <div class="picCadre"><img class="offrePic" src={{ asset ('img/orange.png')}}></div>
-                <div class="bottom"><h2 class="titre">titre</h2></div>
-            </div>
-        </div>
-        <div class="grid-item">
-            <div class="cardOffre">
-                <div class="picCadre"><img class="offrePic" src={{ asset ('img/testvertical.png')}}></div>
-                <div class="bottom"><h2 class="titre">titre</h2></div>
-            </div>
-        </div>
-        <div class="grid-item">
-            <div class="cardOffre">
-                <div class="picCadre"><img class="offrePic" src={{ asset ('img/testvertical.png')}}></div>
-                <div class="bottom"><h2 class="titre">titre</h2></div>
-            </div>
-        </div>
-        <div class="grid-item"></div>
-        <div class="grid-item"></div>
-        <div class="grid-item"></div>
-        <div class="grid-item"></div>
-        <div class="grid-item"></div>
-        <div class="grid-item"></div>
-        <div class="grid-item"></div>
-        <div class="grid-item"></div>
-    </div>
+    {% endfor %}
+    
 </div>
 
 <div id="map" class="map"></div>

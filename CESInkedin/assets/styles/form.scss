@@ -1,0 +1,41 @@
+$pastel : #5c88da;
+$pastelHover : #3762b3;
+$fond :#fffdf0;
+
+
+input, #admins_form_username{
+    margin: 1em 0;
+    width: auto !important;
+    padding: 7.5px;
+    border-radius: 7.5px;
+    border: solid $pastel 2px;
+    font-family: Karla,sans-serif;
+    font-size: 1em;
+}
+
+:focus-visible {
+    outline: -webkit-focus-ring-color auto 0px;
+}
+
+label{
+    margin-right: 0.5em;
+    font-family: Karla,sans-serif;
+    font-size: 1em;
+}
+
+button{
+    background-color: $pastel;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-family: Karla,sans-serif;
+    font-size: 1em;
+    outline: none;
+    padding: 15px;
+    position: static;
+    text-align: center;
+    font-weight: bold;
+}
+button:hover {
+    box-shadow: inset 2px 4px 3px rgb(0 0 0 / 10%);
+}

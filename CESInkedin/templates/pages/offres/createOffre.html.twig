@@ -1,0 +1,20 @@
+
+{% extends "base.html.twig" %}
+
+{% block title %}Créer une offre{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('scss/form') }}
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Créer une nouvelle offre</h1>
+        {{ include ("pages/offres/offreForm.html.twig", {form: form, button: 'Créer'}) }}
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

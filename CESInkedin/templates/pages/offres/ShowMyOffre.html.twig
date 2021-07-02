@@ -1,0 +1,34 @@
+
+{% extends "base.html.twig" %}
+
+{% block title %}Mes offres déposées{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('scss/card') }}
+{% endblock %}
+
+{% block body %}
+    <h1>Mes offres déposées</h1>
+    <div class="gridOffre">
+        {% for offre in offres %}
+            <div class="grid-gallery">
+                <div class="grid-item">
+                    <div class="cardOffre">
+                        <div class="picCadre">
+                            {% if offre.filename %}
+                            <img class="offrePic" src={{ vich_uploader_asset(offre, 'imageFile')}}>
+                            {% else %}
+                            <img class="offrePic" src={{ asset ('img/default-pic.png')}}>
+                            {% endif %}
+                        </div>
+                        <div class="bottom"><h2 class="entreprise">{{offre.entreprise}}</h2><h2 class="titre">{{offre.titre}}</h2></div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

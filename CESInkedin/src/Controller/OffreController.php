@@ -36,6 +36,28 @@ class OffreController extends AbstractController {
         $username = $this->getUser()->getUsername();
         $offre->setCreator($username);
         if ($form->isSubmitted() && $form->isValid()){
+
+            $address = $form["adresse"]->getData() .',' . $form["ville"]->getData() . ',' . $form["codePostal"]->getData();
+
+            $queryString = http_build_query([
+                'access_key' => '31add3370807e163542a5d5c67d10a57',
+                'query' => $address,
+                'output' => 'json',
+                'limit' => 1,
+            ]);
+            
+            $ch = curl_init(sprintf('%s?%s', 'http://api.positionstack.com/v1/forward', $queryString));
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            
+            $json = curl_exec($ch);
+            
+            curl_close($ch);
+            
+            $apiResult = json_decode($json, true);
+
+            $offre->setLat($apiResult['data'][0]['latitude']);
+            $offre->setLon($apiResult['data'][0]['longitude']);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($offre);
             $em->flush();
@@ -57,12 +79,12 @@ class OffreController extends AbstractController {
     public function ShowMyOffre(PaginatorInterface $paginator, Request $request){
 
         $offres = $paginator->paginate(
-            $this->repository->findBy(array(), array('created_at' => 'DESC')),
+            $this->repository->findBy(array('creator' => $this->getUser()), array('created_at' => 'DESC')),
             $request->query->getInt('page', 1),
             10
         );
 
-        return $this->render('admin/actus/ShowActus.html.twig', [
+        return $this->render('pages/offres/ShowMyOffre.html.twig', [
             'offres' => $offres,
             'loggedUser' => $this->getUser(),
         ]);

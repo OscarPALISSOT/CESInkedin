@@ -14,10 +14,11 @@
 {% endblock %}
 
 {% block body %}
-<div class="featured">
-    <h1>Offres à la une :</h1>
-    {% for featuredOffre in featuredOffres %}
-        <div class="grid-gallery">
+
+<h1>Offres à la une :</h1>
+<div class="gridOffre">
+    <div class="grid-gallery">
+        {% for featuredOffre in featuredOffres %}
             <div class="grid-item">
                 <div class="cardOffre">
                     <div class="picCadre">
@@ -27,13 +28,17 @@
                         <img class="offrePic" src={{ asset ('img/default-pic.png')}}>
                         {% endif %}
                     </div>
-                    <div class="bottom"><h2 class="entreprise">{{featuredOffre.titre}}</h2><h2 class="titre">{{featuredOffre.sousTitre}}</h2></div>
+                    <div class="bottom"><h2 class="entreprise">{{featuredOffre.entreprise}}</h2><h2 class="titre">{{featuredOffre.titre}}</h2></div>
                 </div>
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
+    </div>
     
 </div>
+
+{% for featuredOffre in featuredOffres %}
+    <div class="js-marker" data-lat="{{featuredOffre.lat}}" data-lon="{{featuredOffre.lon}}" data-text="{{featuredOffre.entreprise}}"></div>
+{% endfor %}
 
 <div id="map" class="map"></div>
 

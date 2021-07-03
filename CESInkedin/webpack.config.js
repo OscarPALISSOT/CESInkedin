@@ -30,6 +30,8 @@ Encore
     .addStyleEntry('scss/card', './assets/styles/card.scss')
     .addStyleEntry('scss/form', './assets/styles/form.scss')
     .addStyleEntry('scss/MyOffre', './assets/styles/MyOffre.scss')
+    .addStyleEntry('scss/accordeon', './assets/styles/accordeon.scss')
+    .addStyleEntry('scss/showOffre', './assets/styles/showOffre.scss')
     .addEntry('js/map', './assets/js/map.js')
     .addEntry('js/addAdmin', './assets/js/addAdmin.js')
     

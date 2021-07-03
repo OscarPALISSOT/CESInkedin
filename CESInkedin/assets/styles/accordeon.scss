@@ -1,0 +1,155 @@
+$pastel : #5c88da;
+$pastelHover : #3762b3;
+$fond :#fffdf0;
+
+
+//déroullant
+.accordion {
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    height: 43px;
+    width: 200px;
+    padding: 0;
+    text-align: left;
+    border-top: solid 3px black;
+    border-right:solid 3px black;
+    box-shadow: -2px 4px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 0 15px 0 0 ;
+    font-family: 'Karla', sans-serif;
+    font-weight: bold;
+    position: relative;
+    overflow: hidden;
+    margin-top: 1em;
+}
+
+//titre déroullant
+.accordionTitle{
+    margin-bottom: 5px;
+    position: absolute;
+    left: 5px;
+    top: 15px; 
+}
+p.accordionTitle{
+    font-size: 0.7em;
+} 
+
+//animation déroullant
+.accordion:hover{
+    background-color: transparent;
+}
+
+.accordion:before {    
+    content: "";
+    display: block;
+    height: 100%;
+    position: absolute;
+    background:$pastel;
+    bottom: 0;
+    width: 100%;
+    transition: transform 0.35s ease-out;
+    transform-origin: bottom right;
+    transform: scaleX(0);
+}
+.accordion:hover:before { 
+    transform: scaleX(1);
+    transform-origin: bottom left; 
+}
+
+.accordion:after {
+    content: '+';
+    color: black;
+    margin-right: 15px;
+    margin-left: 30px;
+    display: block;
+    position: absolute;
+    bottom: 5px;
+    right: 0;
+}
+
+.active:after {
+    content: "-";
+}
+
+//contenu déroullant
+.panel {
+    margin-top: 1em;
+    padding: 0;
+    padding-left: 20px;
+    margin-bottom: 2em;
+    background-color: transparent;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease-out;
+    position: relative;
+    p{
+        margin: 1em 0;
+    }
+    .illustrationAccordeon{
+        margin: 1em 0;
+        width: 100%;
+        height: auto;
+        float: left;
+        border-radius: 15px;
+        box-shadow: 5px 5px 6px rgba(0,0,0,0.2);
+        transform: scale(100%);
+        transition: transform .2s ease-in-out;
+    }
+    .illustrationAccordeon:hover{
+        transform: scale(102%);
+        transition: transform .2s ease-in-out;
+    }
+}
+
+.panel::before{
+    content: "";
+    position: absolute;
+    border-radius: 0 0 0 15px ;
+    border-bottom: solid 3px black;
+    border-left:solid 3px black;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    clip-path: polygon(0 0,2% 0, 1% 92%, 100% 92%, 100% 100%,0 100%);
+}
+
+
+//responsive
+
+// X-Small devices (portrait phones, 360px and up)
+@media (min-width: 360px) {
+    .accordion{
+        width: 280px;
+    }
+    p.accordionTitle{
+        font-size: 1em;
+    } 
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+    .accordion{
+        width: 400px;
+        font-size: 1.25em;
+    }
+
+    //contenu déroullant
+    .panel {
+        .illustrationAccordeon{
+            width: 300px;
+            margin-right: calc(768px - 300px - 12% - 1em);
+        }
+    }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+    //contenu déroullant
+    .panel {
+        .illustrationAccordeon{
+            margin-right: 2.5em;
+        }
+    }
+}

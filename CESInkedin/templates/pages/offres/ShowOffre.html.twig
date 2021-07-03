@@ -1,20 +1,19 @@
 
 {% extends "base.html.twig" %}
 
-{% block title %}Mes offres déposées{% endblock %}
+{% block title %}Les offres{% endblock %}
 
 {% block stylesheets %}
     {{ encore_entry_link_tags('scss/card') }}
-    {{ encore_entry_link_tags('scss/MyOffre') }}
 {% endblock %}
 
 {% block body %}
-    <h1>Mes offres déposées</h1>
+    <h1>Les offres :</h1>
     <div class="gridOffre">
         <div class="grid-gallery">
             {% for offre in offres %}
+            <a class="offreLink" href={{ path ('this_offre', {id: offre.id})}}>
                 <div class="grid-item">
-                    <a class="offreLink" href={{ path ('this_offre', {id: offre.id})}}>
                     <div class="cardOffre">
                         <div class="picCadre">
                             {% if offre.filename %}
@@ -25,17 +24,8 @@
                         </div>
                         <div class="bottom"><h2 class="entreprise">{{offre.entreprise}}</h2><h2 class="titre">{{offre.titre}}</h2></div>
                     </div>
-                    </a>
-                    <div class="btnBottom">
-                        <a class="cardBtn" href={{ path ('edit_offre', {id: offre.id})}}><button><i class="fas fa-cog"></i></button> </a>
-                        <form class="cardBtn" id="delete{{offre.id}}" method="post" action={{ path ('delete_offre', {id: offre.id})}}>
-                            <input type="hidden" name="_method" value="DELETE">
-                            <input type="hidden" name="_token" value={{ csrf_token ('delete')}}>
-                            <button  id="delete" type="submit"><i class="fas fa-trash-alt"></i></button>
-                        </form>
-                    </div>
-                    
                 </div>
+            </a>
             {% endfor %}
         </div>
     </div>

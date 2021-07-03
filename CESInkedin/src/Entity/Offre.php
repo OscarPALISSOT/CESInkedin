@@ -8,9 +8,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\UploadedFile as File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\File\File as FileFile;
 
 /**
  * @ORM\Entity(repositoryClass=OffreRepository::class)
+ * @Vich\Uploadable
  */
 class Offre
 {
@@ -241,19 +243,20 @@ class Offre
         return $this;
     }
 
-    public function getImageFile(): ?File
+    public function getImageFile(): ?FileFile
     {
         return $this->imageFile;
     }
 
-    public function setImageFile(File $imageFile): Offre
+    public function setImageFile(?FileFile $imageFile = null): void
     {
         $this->imageFile = $imageFile;
-        if ($this->imageFile instanceof UploadedFile) {
-            $this->Updated_at = new \DateTime('now');
-        }
 
-        return $this;
+        // Only change the updated af if the file is really uploaded to avoid database updates.
+        // This is needed when the file should be set when loading the entity.
+        if ($this->imageFile instanceof UploadedFile) {
+            $this->updatedAt = new \DateTime('now');
+        }
     }
 
     public function getCreator(): ?string

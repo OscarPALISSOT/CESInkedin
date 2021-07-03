@@ -1,0 +1,22 @@
+{% extends "base.html.twig" %}
+
+
+{% block title %}Offre {{offre.entreprise}}{% endblock %}
+
+
+{% block stylesheets %}{% endblock %}
+
+{% block body %}
+    <h1>{{offre.titre}}</h1>
+    <h2>{{offre.entreprise}}</h2>
+    <div class="illustrated"><p>
+    {% if offre.filename %}
+        <img class="illustrationLeft" src={{ vich_uploader_asset(offre, 'imageFile')}}>
+    {% else %}
+        <img class="illustrationLeft" src={{ asset ('img/default-pic.png')}}>
+    {% endif %}
+    {{offre.description}}</p></div>
+    
+{% endblock %}
+
+{% block javascripts %}{% endblock %}

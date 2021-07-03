@@ -81,7 +81,7 @@ class OffreController extends AbstractController {
         $offres = $paginator->paginate(
             $this->repository->findBy(array('creator' => $this->getUser()), array('created_at' => 'DESC')),
             $request->query->getInt('page', 1),
-            10
+            12
         );
 
         return $this->render('pages/offres/ShowMyOffre.html.twig', [
@@ -90,6 +90,71 @@ class OffreController extends AbstractController {
         ]);
     }
 
+    /**
+     * @Route ("/Offres", name="show_offres")
+     * @return Response
+     */
 
+    public function ShowOffre(PaginatorInterface $paginator, Request $request){
+
+        $offres = $paginator->paginate(
+            $this->repository->findBy(array(), array('created_at' => 'DESC')),
+            $request->query->getInt('page', 1),
+            12
+        );
+
+        return $this->render('pages/offres/ShowOffre.html.twig', [
+            'offres' => $offres,
+            'loggedUser' => $this->getUser(),
+        ]);
+    }
+
+    /**
+     * @Route ("/Offre/{id}", name="this_offre")
+     * @return Response
+     */
+    public function thisOffre($id){
+        
+        $offre = $this->repository->find($id);
+        return $this->render('pages/offres/thisOffre.html.twig', [
+            'offre' => $offre,
+            'loggedUser' => $this->getUser(),
+        ]);
+    }
+
+    /**
+     * @Route ("/Offres/{id}", name="edit_offre")
+     * @return Response
+     */
+    public function editOffre(Offre $offre, Request $request){
+        $form = $this->createForm(OffreFormType::class, $offre);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+            return $this->redirectToRoute('MyOffres');
+        }
+        return $this->render('pages/offres/editOffre.html.twig', [
+            'offre' => $offre,
+            'loggedUser' => $this->getUser(),
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route ("/DeleteOffre/{id}", name="delete_offre")
+     * @return Response
+     */
+    public function deleteOffre(Offre $offre, Request $request){
+
+        if ($this->isCsrfTokenValid("delete", $request->get('_token'))){
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($offre);
+            $em->flush();
+        }
+        
+        return $this->redirectToRoute('MyOffres');
+    }
 }
 ?>

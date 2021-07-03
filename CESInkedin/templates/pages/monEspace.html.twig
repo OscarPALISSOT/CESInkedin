@@ -9,6 +9,7 @@
 {% endblock %}
 
 {% block body %}
+<div class="espace">
     <div class="modif">
     <h1>Modifier mes informations</h1>
         <div class="name">
@@ -21,7 +22,13 @@
         </div>
     </div>
 
-    <a class="logout" href="/logout"><button>Se déconnecter</button></a>
+    <div class="btn">
+        <a href={{ path ('MyOffres')}}><button>Voir mes offres déposées</button></a>
+        <a href="/logout"><button>Se déconnecter</button></a>
+    </div>
+    
+</div>
+    
 
 {% endblock %}
 

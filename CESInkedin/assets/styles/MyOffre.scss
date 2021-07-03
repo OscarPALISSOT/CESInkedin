@@ -1,0 +1,60 @@
+$pastel : #5c88da;
+$pastelHover : #3762b3;
+$fond :#fffdf0;
+
+
+.gridOffre{
+    .grid-gallery{
+        grid-template-columns: repeat(auto-fill, 280px);
+    } 
+    .grid-item{
+        width: 280px;
+        height: 260px;
+    }
+}
+
+.btnBottom{
+    display: flex;
+    justify-content: space-around;
+    #delete{
+        background-color: red;
+    }
+    .cardBtn{
+        button{
+            width: 50px;
+            height: 50px;
+            background-color: orange;
+            color: black;
+            margin: 10px 0;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            outline: none;
+            position: static;
+            text-align: center;
+            font-size: 1.5em;
+        }
+        button:hover {
+            box-shadow: inset 2px 4px 3px rgb(0 0 0 / 10%);
+        }
+    }
+}
+
+
+
+.cardOffre{
+    height: calc(100% - 70px);
+}
+// Small devices
+@media (min-width: 360px) {
+
+    .gridOffre{
+        .grid-gallery{
+            grid-template-columns: repeat(auto-fill, 325px);
+        } 
+        .grid-item{
+            width: 325px;
+            height: 290px;
+        }
+    }
+}

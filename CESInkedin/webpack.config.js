@@ -29,6 +29,7 @@ Encore
     .addStyleEntry('scss/admin', './assets/styles/admin/admin.scss')
     .addStyleEntry('scss/card', './assets/styles/card.scss')
     .addStyleEntry('scss/form', './assets/styles/form.scss')
+    .addStyleEntry('scss/MyOffre', './assets/styles/MyOffre.scss')
     .addEntry('js/map', './assets/js/map.js')
     .addEntry('js/addAdmin', './assets/js/addAdmin.js')
     

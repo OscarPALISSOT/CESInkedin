@@ -19,6 +19,7 @@
 <div class="gridOffre">
     <div class="grid-gallery">
         {% for featuredOffre in featuredOffres %}
+        <a class="offreLink" href={{ path ('this_offre', {id: featuredOffre.id})}}>
             <div class="grid-item">
                 <div class="cardOffre">
                     <div class="picCadre">
@@ -31,6 +32,7 @@
                     <div class="bottom"><h2 class="entreprise">{{featuredOffre.entreprise}}</h2><h2 class="titre">{{featuredOffre.titre}}</h2></div>
                 </div>
             </div>
+        </a>
         {% endfor %}
     </div>
     

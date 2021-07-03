@@ -72,7 +72,7 @@ class MonEspaceController extends AbstractController {
             }
         }
         
-        return new Response(content:$this->twig->render('monEspace.html.twig', [
+        return new Response(content:$this->twig->render('pages/monEspace.html.twig', [
             'loggedUser' => $this->getUser(),
             'form' => $form->createView(),
             'formPwd' => $formPwd->createView(),

@@ -2,8 +2,13 @@ $pastel : #5c88da;
 $pastelHover : #3762b3;
 $fond :#fffdf0;
 
+
+.espace{
+    display: flex;
+    flex-direction: column;
+}
 .modif{
-    width: 50%;
+    width: 100%;
     height: auto;
     border: solid 3px rgba(0, 0, 0, 0.5);
     border-radius: 15px;
@@ -16,14 +21,37 @@ $fond :#fffdf0;
     border: solid 3px rgba(0, 0, 0, 0.5);
     border-radius: 15px;
     padding: 1em;
-    margin: 2em;
+    margin: 1em;
     width: auto;
+}
+
+.btn{
+    button{
+        margin: 1em;
+    }
 }
 
 
 
-.logout{
-    position: absolute;
-    right: 0;
-    top: 0;
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+    .espace{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .name, .pwd{
+        margin: 2em;
+    }
+
+    .modif{
+        width: 50%;
+    }
+
+    .btn{
+        button{
+            margin-top: 0em;
+        }
+    }
 }

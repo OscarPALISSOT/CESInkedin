@@ -5,6 +5,8 @@ namespace App\Entity;
 
 use DateTime;
 use App\Repository\AdminRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -17,11 +19,18 @@ class Admin implements UserInterface,\Serializable
     public function __construct()
     {
         $this->created_at = new DateTime();
+        $this->likes = new ArrayCollection();
     }
+
 
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $username;
@@ -40,6 +49,17 @@ class Admin implements UserInterface,\Serializable
      * @ORM\Column(type="datetime")
      */
     private $created_at;
+
+    /**
+     * @ORM\OneToMany(targetEntity=OffreLike::class, mappedBy="user")
+     */
+    private $likes;
+
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
     public function getUsername(): ?string
     {
@@ -93,6 +113,7 @@ class Admin implements UserInterface,\Serializable
     public function serialize()
     {
         return serialize([
+            $this->id,
             $this->username,
             $this->password
         ]);
@@ -102,6 +123,7 @@ class Admin implements UserInterface,\Serializable
     public function unserialize($serialized)
     {
         list(
+            $this->id,
             $this->username,
             $this->password
         ) = unserialize($serialized, ['allowed_classes' => false]);
@@ -115,6 +137,36 @@ class Admin implements UserInterface,\Serializable
     public function setCreatedAt(\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|OffreLike[]
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(OffreLike $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes[] = $like;
+            $like->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(OffreLike $like): self
+    {
+        if ($this->likes->removeElement($like)) {
+            // set the owning side to null (unless already changed)
+            if ($like->getUser() === $this) {
+                $like->setUser(null);
+            }
+        }
 
         return $this;
     }

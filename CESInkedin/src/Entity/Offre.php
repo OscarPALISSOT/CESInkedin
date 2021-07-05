@@ -3,7 +3,10 @@
 namespace App\Entity;
 
 use App\Repository\OffreRepository;
+use App\Entity\Admin;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\UploadedFile as File;
@@ -22,6 +25,7 @@ class Offre
     {
         $this->created_at = new DateTime();
         $this->updated_at = new DateTime();
+        $this->likes = new ArrayCollection();
     }
 
 
@@ -98,6 +102,11 @@ class Offre
      * @ORM\Column(type="string", length=255)
      */
     private $creator;
+
+    /**
+     * @ORM\OneToMany(targetEntity=OffreLike::class, mappedBy="offre")
+     */
+    private $likes;
 
     public function getId(): ?int
     {
@@ -269,5 +278,46 @@ class Offre
         $this->creator = $creator;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|OffreLike[]
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(OffreLike $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes[] = $like;
+            $like->setOffre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(OffreLike $like): self
+    {
+        if ($this->likes->removeElement($like)) {
+            // set the owning side to null (unless already changed)
+            if ($like->getOffre() === $this) {
+                $like->setOffre(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+    //permet de savoir liké par un utilisateur
+    public function isLikedByUser(Admin $user): bool {
+        foreach($this->likes as $like){
+            if($like->getUser() === $user){
+                return true;
+            }
+        }
+        return false;
     }
 }

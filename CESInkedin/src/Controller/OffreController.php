@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Offre;
+use App\Entity\OffreLike;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Twig\Environment;
@@ -11,6 +12,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\OffreRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use App\Form\OffreFormType;
+use App\Repository\OffreLikeRepository;
+use Doctrine\Persistence\ObjectManager;
 
 class OffreController extends AbstractController {
 
@@ -33,8 +36,8 @@ class OffreController extends AbstractController {
         $offre = new Offre;
         $form = $this->createForm(OffreFormType::class, $offre);
         $form->handleRequest($request);
-        $username = $this->getUser()->getUsername();
-        $offre->setCreator($username);
+        $idCreator = $this->getUser()->getId();
+        $offre->setCreator($idCreator);
         if ($form->isSubmitted() && $form->isValid()){
 
             $address = $form["adresse"]->getData() .',' . $form["ville"]->getData() . ',' . $form["codePostal"]->getData();
@@ -79,7 +82,7 @@ class OffreController extends AbstractController {
     public function ShowMyOffre(PaginatorInterface $paginator, Request $request){
 
         $offres = $paginator->paginate(
-            $this->repository->findBy(array('creator' => $this->getUser()), array('created_at' => 'DESC')),
+            $this->repository->findBy(array('creator' => $this->getUser()->getId()), array('created_at' => 'DESC')),
             $request->query->getInt('page', 1),
             12
         );
@@ -123,7 +126,7 @@ class OffreController extends AbstractController {
     }
 
     /**
-     * @Route ("/Offres/{id}", name="edit_offre")
+     * @Route ("/OffreEdit/{id}", name="edit_offre")
      * @return Response
      */
     public function editOffre(Offre $offre, Request $request){
@@ -155,6 +158,50 @@ class OffreController extends AbstractController {
         }
         
         return $this->redirectToRoute('MyOffres');
+    }
+
+
+    
+    /**
+     * permet de liker ou unliker une offre
+     * @Route ("/Offre/{id}/like", name="like_offre")
+     * @return Response
+     */
+    public function like(Offre $offre, OffreLikeRepository $offreLikeRepository): Response {
+        $user = $this->getUser();
+
+        if($offre->isLikedByUser($user)) {
+            $like = $offreLikeRepository->findOneBy([
+                'offre' => $offre,
+                'user' => $user
+            ]);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($like);
+            $em->flush();
+
+            return $this->json([
+                'code' => 200,
+                'message' => 'like supprimé',
+                'likes' => $offreLikeRepository->count([
+                    'offre' => $offre
+                ])
+            ], 200);
+        }
+
+        $like = new OffreLike();
+        $like->setOffre($offre);
+        $like->setUser($user);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($like);
+        $em->flush();
+        return $this->json([
+            'code' => 200,
+            'message'=>'like ajouté',
+            'likes' => $offreLikeRepository->count([
+            'offre' => $offre
+            ])
+        ], 200);
     }
 }
 ?>

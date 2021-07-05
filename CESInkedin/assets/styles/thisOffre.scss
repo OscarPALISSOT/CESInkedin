@@ -1,0 +1,16 @@
+$pastel : #5c88da;
+$pastelHover : #3762b3;
+$fond :#fffdf0;
+
+
+.btn-link{
+    color: $pastel;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 1.5em;
+}
+
+.btn-link:hover{
+    color: $pastelHover;
+    text-decoration: underline;
+}

@@ -4,7 +4,9 @@
 {% block title %}Offre {{offre.entreprise}}{% endblock %}
 
 
-{% block stylesheets %}{% endblock %}
+{% block stylesheets %}
+    {{ encore_entry_link_tags('scss/thisOffre') }}
+{% endblock %}
 
 {% block body %}
     <h1>{{offre.titre}}</h1>
@@ -15,8 +17,22 @@
     {% else %}
         <img class="illustrationLeft" src={{ asset ('img/default-pic.png')}}>
     {% endif %}
-    {{offre.description}}</p></div>
+    {{offre.description}}</p>
+    <a href={{ path ('like_offre', {id: offre.id})}} class="btn btn-link js-like">
+        {% if app.user and offre.isLikedByUser(app.user) %}
+            <i class="fas fa-thumbs-up fa-2x"></i>
+        {% else %}
+            <i class="far fa-thumbs-up fa-2x"></i>
+        {% endif %}
+        <span class="js-likes">{{offre.likes | length}}</span>
+        <span class="js-label">J'aime</span>
+    </a>
+    </div>
+    
     
 {% endblock %}
 
-{% block javascripts %}{% endblock %}
+{% block javascripts %}
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    {{ encore_entry_script_tags('js/like') }}
+{% endblock %}

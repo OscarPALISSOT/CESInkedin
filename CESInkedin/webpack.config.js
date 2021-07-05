@@ -33,9 +33,11 @@ Encore
     .addStyleEntry('scss/accordeon', './assets/styles/accordeon.scss')
     .addStyleEntry('scss/showOffre', './assets/styles/showOffre.scss')
     .addStyleEntry('scss/thisOffre', './assets/styles/thisOffre.scss')
+    .addStyleEntry('scss/carousel', './assets/styles/carousel.scss')
     .addEntry('js/map', './assets/js/map.js')
     .addEntry('js/addAdmin', './assets/js/addAdmin.js')
     .addEntry('js/like', './assets/js/like.js')
+    .addEntry('js/carousel', './assets/js/carousel.js')
     
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)

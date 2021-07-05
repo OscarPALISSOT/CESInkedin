@@ -170,4 +170,16 @@ class Admin implements UserInterface,\Serializable
 
         return $this;
     }
+
+    //retourne les id des offres likées
+    public function getLikedOffre() {
+        $offreId = [];
+        $i = 0;
+        foreach($this->likes as $like){
+            $offreId[$i] = $like->getOffre();
+            $i++;
+        }
+        return $offreId;
+    }
+
 }

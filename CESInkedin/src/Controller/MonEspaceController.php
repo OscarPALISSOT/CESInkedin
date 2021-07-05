@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Admin;
 use App\Form\AdminFormType;
 use App\Form\ChangePwdType;
+use App\Repository\AdminRepository;
 use Twig\Environment;
 use Symfony\Component\Form\FormError;
 
@@ -18,10 +19,11 @@ use Symfony\Component\Form\FormError;
 class MonEspaceController extends AbstractController {
 
 
-    public function __construct(Environment $twig, UserPasswordEncoderInterface $encoder)
+    public function __construct(Environment $twig, UserPasswordEncoderInterface $encoder, AdminRepository $adminRepository)
     {
         $this->twig = $twig;
         $this->encoder = $encoder;
+        $this->adminRepository = $adminRepository;
     }
 
     /**
@@ -31,6 +33,7 @@ class MonEspaceController extends AbstractController {
     public function index(Admin $admin, Request $request) :Response {
 
         $user = $this->getUser();
+        dump($user->getLikedOffre());
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(AdminFormType::class, $admin);
         $form->handleRequest($request);
@@ -40,7 +43,7 @@ class MonEspaceController extends AbstractController {
         if ($form->isSubmitted() && $form->isValid()){
             $em->flush();
             return $this->redirectToRoute('monEspace', [
-                'id' => $this->getUser()->getUsername()
+                'id' => $this->getUser()->getId()
             ]);
         }
 
@@ -63,7 +66,7 @@ class MonEspaceController extends AbstractController {
                 $this->addFlash('notice', 'Votre mot de passe à bien été changé !');
 
                 return $this->redirectToRoute('monEspace', [
-                    'id' => $this->getUser()->getUsername()
+                    'id' => $this->getUser()->getId()
                 ]);
             } else {
 
@@ -76,6 +79,7 @@ class MonEspaceController extends AbstractController {
             'loggedUser' => $this->getUser(),
             'form' => $form->createView(),
             'formPwd' => $formPwd->createView(),
+            'likes' => $user->getLikedOffre(),
         ]));
 
     }

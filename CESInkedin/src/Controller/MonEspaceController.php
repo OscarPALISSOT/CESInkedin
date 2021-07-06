@@ -12,6 +12,7 @@ use App\Entity\Admin;
 use App\Form\AdminFormType;
 use App\Form\ChangePwdType;
 use App\Repository\AdminRepository;
+use App\Repository\OffreRepository;
 use Twig\Environment;
 use Symfony\Component\Form\FormError;
 
@@ -19,21 +20,21 @@ use Symfony\Component\Form\FormError;
 class MonEspaceController extends AbstractController {
 
 
-    public function __construct(Environment $twig, UserPasswordEncoderInterface $encoder, AdminRepository $adminRepository)
+    public function __construct(Environment $twig, UserPasswordEncoderInterface $encoder, AdminRepository $adminRepository, OffreRepository $offreRepository)
     {
         $this->twig = $twig;
         $this->encoder = $encoder;
         $this->adminRepository = $adminRepository;
+        $this->offreRepository = $offreRepository;
     }
 
     /**
-     * @Route ("Admin/MonEspace/{id}", name="monEspace")
+     * @Route ("/MonEspace/{id}", name="monEspace")
      * @return Response
      */
     public function index(Admin $admin, Request $request) :Response {
 
         $user = $this->getUser();
-        dump($user->getLikedOffre());
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(AdminFormType::class, $admin);
         $form->handleRequest($request);
@@ -74,12 +75,46 @@ class MonEspaceController extends AbstractController {
 
             }
         }
+
+        
+        $offreId = $user->getLikedOffre();
+        $i = 0;
+        foreach($offreId as $offre){
+            $offre = $this->offreRepository->findOneBy([
+                'id' => $offreId[$i]
+            ]);
+            $offreId[$i] = $offre;
+            $i++;
+        }
         
         return new Response(content:$this->twig->render('pages/monEspace.html.twig', [
             'loggedUser' => $this->getUser(),
             'form' => $form->createView(),
             'formPwd' => $formPwd->createView(),
-            'likes' => $user->getLikedOffre(),
+            'likes' => $offreId,
+        ]));
+    }
+
+    /**
+     * @Route ("/MonEspace/{id}/favoris", name="favori")
+     * @return Response
+     */
+    public function favori(Admin $admin, Request $request) :Response {
+
+        $user = $this->getUser();
+        $offreId = $user->getLikedOffre();
+        $i = 0;
+        foreach($offreId as $offre){
+            $offre = $this->offreRepository->findOneBy([
+                'id' => $offreId[$i]
+            ]);
+            $offreId[$i] = $offre;
+            $i++;
+        }
+        
+        return new Response(content:$this->twig->render('pages/favoris.html.twig', [
+            'loggedUser' => $this->getUser(),
+            'offres' => $offreId,
         ]));
 
     }

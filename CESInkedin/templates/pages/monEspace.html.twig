@@ -6,41 +6,44 @@
 {% block stylesheets %}
     {{ encore_entry_link_tags('scss/monEspace') }}
     {{ encore_entry_link_tags('scss/form') }}
+    {{ encore_entry_link_tags('scss/carousel') }}
 {% endblock %}
 
 {% block body %}
-<div class="espace">
-    <div class="modif">
-    <h1>Modifier mes informations</h1>
-        <div class="name">
-        <h2>Changer d'identifiant</h2>
-            {{ include ("admin/admins/FormAdmins.html.twig", {form: form, button: 'Enregistrer'}) }}
-        </div>
-        <div class="pwd">
-        <h2>Changer de mot de passe</h2>
-            {{form (formPwd)}}
-        </div>
-    </div>
 
-    <div class="btn">
-        <a href={{ path ('MyOffres')}}><button>Voir mes offres déposées</button></a>
-        <a href="/logout"><button>Se déconnecter</button></a>
-    </div>
-    
+<div class="btn-top">
+    <a href={{ path ('favori', {id: loggedUser.id})}}><button>Voir mes favoris</button></a>
+    <a href={{ path ('MyOffres')}}><button>Voir mes offres déposées</button></a>
+    <a href="/logout"><button>Se déconnecter</button></a>
+</div>
 
-    <div class="wishList">
-        {# <div class="cardOffre">
+<h1>Mes favoris :</h1>
+<div id="wishList">
+    {% for like in likes %}
+    <a class="offreLink" href={{ path ('this_offre', {id: like.id})}}>
+        <div class="cardOffre">
             <div class="picCadre">
-                {% if likes.filename %}
-                <img class="offrePic" src={{ vich_uploader_asset(likes, 'imageFile')}}>
+                {% if like.filename %}
+                <img class="offrePic" src={{ vich_uploader_asset(like, 'imageFile')}}>
                 {% else %}
                 <img class="offrePic" src={{ asset ('img/default-pic.png')}}>
                 {% endif %}
             </div>
-            <div class="bottom">
-                <h2 class="entreprise">{{likes.entreprise}}</h2><h2 class="titre">{{likes.titre}}</h2>
-            </div>
-        </div> #}
+            <div class="bottom"><h2 class="entreprise">{{like.entreprise}}</h2><h2 class="titre">{{like.titre}}</h2></div>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+
+<div class="modif">
+<h1>Modifier mes informations</h1>
+    <div class="name">
+    <h2>Changer d'identifiant</h2>
+        {{ include ("admin/admins/FormAdmins.html.twig", {form: form, button: 'Enregistrer'}) }}
+    </div>
+    <div class="pwd">
+    <h2>Changer de mot de passe</h2>
+        {{form (formPwd)}}
     </div>
 </div>
     
@@ -48,5 +51,5 @@
 {% endblock %}
 
 {% block javascripts %}
-
+    {{ encore_entry_script_tags('js/carousel') }}
 {% endblock %}

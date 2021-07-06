@@ -158,7 +158,7 @@ class Carousel {
 }
 
 
-//carousel témoignage
+//carousel whishlist
 new Carousel(document.querySelector('#wishList'),{
     slideToScroll: 3,
     slideVisibles: 3,

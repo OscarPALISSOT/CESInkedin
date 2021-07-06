@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Offre;
 use App\Entity\OffreLike;
+use App\Entity\OffreSearch;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Twig\Environment;
@@ -12,6 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\OffreRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use App\Form\OffreFormType;
+use App\Form\OffreSearchType;
 use App\Repository\OffreLikeRepository;
 use Doctrine\Persistence\ObjectManager;
 
@@ -100,8 +102,12 @@ class OffreController extends AbstractController {
 
     public function ShowOffre(PaginatorInterface $paginator, Request $request){
 
+        $Search = new OffreSearch();
+        $form = $this->createForm(OffreSearchType::class, $Search);
+        $form->handleRequest($request);
+
         $offres = $paginator->paginate(
-            $this->repository->findBy(array(), array('created_at' => 'DESC')),
+            $this->repository->findSearch($Search),
             $request->query->getInt('page', 1),
             12
         );
@@ -109,6 +115,7 @@ class OffreController extends AbstractController {
         return $this->render('pages/offres/ShowOffre.html.twig', [
             'offres' => $offres,
             'loggedUser' => $this->getUser(),
+            'form' => $form->createView()
         ]);
     }
 

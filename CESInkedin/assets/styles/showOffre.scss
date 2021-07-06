@@ -13,3 +13,23 @@ $fond :#fffdf0;
     margin: 1em;
     z-index: 0;
 }
+
+.search{
+    width: 100vw;
+    height: auto;
+    background-color: $pastelHover;
+    margin-left: -12vw;
+    margin-top: -2em;
+    padding: 0 12vw;
+    form{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        button{
+            height: 49px;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+    }
+}

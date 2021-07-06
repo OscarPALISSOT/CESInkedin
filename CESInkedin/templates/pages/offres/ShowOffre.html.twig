@@ -8,12 +8,21 @@
     {{ encore_entry_link_tags('scss/accordeon') }}
     {{ encore_entry_link_tags('scss/map') }}
     {{ encore_entry_link_tags('scss/showOffre') }}
+    {{ encore_entry_link_tags('scss/form') }}
     {# leaflet map #}
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
     crossorigin=""/>
 {% endblock %}
 
 {% block body %}
+    <div class="search">
+        {{form_start (form)}}
+        {{form_row (form.titre)}}
+        {{form_row (form.entreprise)}}
+        {{form_row (form.description)}}
+        <button>Rechercher</button>
+        {{form_end (form)}}
+    </div>
     <h1>Les offres :</h1>
     <button class="accordion"><p class="accordionTitle">Voir la carte des offres</p></button>
     <div class="panel">
